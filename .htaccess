@@ -1,0 +1,19 @@
+RewriteEngine on
+Options +FollowSymlinks
+rewritecond %{http_host} ^projeto-metalico.br [NC]
+rewriterule ^(.*)$ http://www.projeto-metalico.com.br/$1 [r=301,NC]
+
+RewriteCond %{THE_REQUEST} \ /(.+/)?index(\.html)?(\?.*)?\  [NC]
+RewriteRule ^(.+/)?index(\.html)?$ /%1 [R=301,L]
+
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^(.+)\.html$ /$1 [R=301,L]
+
+RewriteCond %{SCRIPT_FILENAME}.html -f
+RewriteRule [^/]$ %{REQUEST_URI}.html [QSA,L]
+
+ErrorDocument 404 http://www.projeto-metalico.com.br/404
+
+RewriteCond %{HTTP_HOST} ^projeto-metalico.com.br$
+RewriteRule ^/?$ "http\:\/\/www\.projeto-metalico\.com\.br\/" [R=301,L]
+
